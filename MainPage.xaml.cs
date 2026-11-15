@@ -1,5 +1,6 @@
 using CommunityToolkit.Maui;
-using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Maui.Extensions;
+using Microsoft.Maui.Controls.Shapes;
 using DayCounter.Models;
 using DayCounter.Services;
 
