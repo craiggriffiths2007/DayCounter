@@ -82,7 +82,6 @@ public sealed class DayCounterWidget : AppWidgetProvider
         };
         var sceneResource = sceneResources[stage];
 
-        try
         {
             var launch = new Intent(context, typeof(MainActivity));
             launch.SetFlags(ActivityFlags.NewTask | ActivityFlags.ClearTop);
@@ -120,9 +119,5 @@ public sealed class DayCounterWidget : AppWidgetProvider
                 }
             }
         }
-        finally
-        {
-            // All RemoteViews are built; no bitmap allocations to clean up.
-        }
-    }
+     }
 }
