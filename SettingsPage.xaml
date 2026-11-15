@@ -32,14 +32,11 @@
                 <VerticalStackLayout Spacing="12">
                     <Label Text="Theme" FontSize="18" FontAttributes="Bold"
                            TextColor="#183B36"/>
-                    <Picker x:Name="ThemePicker" Title="Choose a theme"
-                            SelectedIndexChanged="OnThemeChanged"
-                            TextColor="#183B36">
-                        <Picker.Items>
-                            <x:String>Storm to Sunshine</x:String>
-                            <x:String>Classic Green</x:String>
-                        </Picker.Items>
-                    </Picker>
+                    <Button x:Name="ThemeButton" Text="Storm to Sunshine"
+                            Clicked="OnChooseThemeClicked"
+                            BackgroundColor="#E0E8E3" TextColor="#183B36"
+                            HorizontalOptions="Fill" CornerRadius="12"
+                            SemanticProperties.Description="Choose appearance theme" />
                     <Label Text="The selected theme is used by both the main app and the home-screen widget."
                            FontSize="13" TextColor="#536B65"/>
                 </VerticalStackLayout>
