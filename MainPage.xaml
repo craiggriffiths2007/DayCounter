@@ -9,6 +9,17 @@
                              MaximumWidthRequest="520"
                              VerticalOptions="Center" HorizontalOptions="Center">
 
+
+            <Grid ColumnDefinitions="*,Auto" HeightRequest="46">
+                <Label Text="DayCounter" FontSize="22" TextColor="#183B36"
+                       VerticalTextAlignment="Center"/>
+                <Button Grid.Column="1" Text="⚙" FontSize="25"
+                        BackgroundColor="Transparent" TextColor="#183B36"
+                        WidthRequest="48" HeightRequest="48"
+                        SemanticProperties.Description="Open settings"
+                        Clicked="OnSettingsClicked"/>
+            </Grid>
+
             <!-- Same illustrated landscape used by the Android widget.
                  The ImageSource changes with the saved day in code-behind. -->
             <Border StrokeThickness="0" BackgroundColor="#253346"
@@ -27,7 +38,7 @@
 
                         <HorizontalStackLayout Spacing="2" HorizontalOptions="Center"
                                                VerticalOptions="Center">
-                            <!-- Preview arrows enabled only by DEBUG code. -->
+                            <!-- Day editing arrows are enabled only from Settings. -->
                             <Button x:Name="PreviewPrevious" Text="&#x2039;"
                                     IsVisible="False" BackgroundColor="#55000000"
                                     TextColor="White" FontSize="26" Padding="2"
