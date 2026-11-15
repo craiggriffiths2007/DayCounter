@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_background">
+    <ImageView android:id="@+id/widget_scene"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:scaleType="fitXY" android:src="@drawable/widget_scene_0" android:contentDescription="Weather-themed progress landscape" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+        android:orientation="vertical" android:gravity="center"
+        android:padding="10dp">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="DayCounter" android:textSize="11sp" android:textColor="#FFFFFF"
+            android:shadowColor="#99000000" android:shadowRadius="3" />
+        
+            <TextView android:id="@+id/day_count" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="0" android:textSize="48sp"
+            android:textStyle="bold" android:textColor="#FFFFFF" android:maxLines="1"
+            android:autoSizeTextType="uniform" android:autoSizeMinTextSize="20sp"
+            android:autoSizeMaxTextSize="48sp" android:shadowColor="#99000000" android:shadowRadius="4" />
+        <TextView android:id="@+id/day_label" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="days since last drink"
+            android:textSize="11sp" android:gravity="center" android:textColor="#FFFFFF"
+            android:shadowColor="#99000000" android:shadowRadius="3" />
+        <TextView android:id="@+id/day_message" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_marginTop="6dp"
+            android:text="A fresh start" android:textSize="10sp" android:textColor="#FFF1D7"
+            android:gravity="center" android:maxLines="1"
+            android:shadowColor="#99000000" android:shadowRadius="3" />
+    </LinearLayout>
+</FrameLayout>

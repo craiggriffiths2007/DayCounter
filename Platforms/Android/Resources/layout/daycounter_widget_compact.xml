@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_background">
+    <ImageView
+        android:id="@+id/widget_scene"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY" android:src="@drawable/widget_scene_0"
+        android:contentDescription="Weather-themed progress landscape" />
+    
+        <TextView android:id="@+id/day_count"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:gravity="center"
+            android:text="0" android:textSize="32sp" android:textStyle="bold"
+            android:textColor="#FFFFFF" android:singleLine="true"
+            android:autoSizeTextType="uniform" android:autoSizeMinTextSize="13sp"
+            android:autoSizeMaxTextSize="32sp" android:shadowColor="#99000000"
+            android:shadowRadius="4" />
+</FrameLayout>

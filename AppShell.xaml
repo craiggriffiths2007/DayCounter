@@ -1,0 +1,12 @@
+<Shell
+    x:Class="DayCounter.AppShell"
+    xmlns:local="clr-namespace:DayCounter"
+    Title="DayCounter" Shell.NavBarIsVisible="False">
+
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+
+</Shell>
+

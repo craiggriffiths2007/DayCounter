@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 456 456" width="456" height="456">
+<defs>
+  <linearGradient id="outer" x1="0" y1="1" x2="1" y2="0">
+    <stop offset="0" stop-color="#006d71"/><stop offset=".48" stop-color="#03b6a5"/><stop offset="1" stop-color="#42ee73"/>
+  </linearGradient>
+  <linearGradient id="sky" x1=".2" y1="1" x2=".8" y2="0">
+    <stop offset="0" stop-color="#d8f7c4"/><stop offset=".55" stop-color="#9ce8d7"/><stop offset="1" stop-color="#38bac5"/>
+  </linearGradient>
+  <linearGradient id="hillBack" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#9ce867"/><stop offset="1" stop-color="#178b74"/>
+  </linearGradient>
+  <linearGradient id="hillFront" x1="0" y1="0" x2=".8" y2="1">
+    <stop offset="0" stop-color="#45d283"/><stop offset=".48" stop-color="#079d7f"/><stop offset="1" stop-color="#075f62"/>
+  </linearGradient>
+  <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fff395"/><stop offset=".4" stop-color="#ffcd36"/><stop offset="1" stop-color="#ff9900"/>
+  </linearGradient>
+  <clipPath id="roundView"><circle cx="228" cy="228" r="157"/></clipPath>
+</defs>
+<!-- A vector master: no 128px raster source, so launcher and splash remain sharp. -->
+<circle cx="228" cy="228" r="188" fill="url(#outer)"/>
+<circle cx="228" cy="228" r="166" fill="#075f68"/>
+<circle cx="228" cy="228" r="158" fill="url(#sky)"/>
+<g clip-path="url(#roundView)">
+  <g stroke="#ffbb0c" stroke-width="14" stroke-linecap="round">
+    <path d="M227 112 V92"/><path d="M175 130 L160 110"/><path d="M279 130 L294 110"/>
+    <path d="M145 166 L123 155"/><path d="M309 166 L331 155"/>
+  </g>
+  <circle cx="227" cy="222" r="67" fill="url(#sun)"/>
+  <path d="M62 268 C125 227 151 237 210 270 C270 224 333 228 395 258 L395 401 L61 401 Z" fill="url(#hillBack)"/>
+  <path d="M61 292 C144 270 182 311 229 301 C277 286 336 269 395 288 L395 406 L61 406 Z" fill="#159a7d"/>
+  <path d="M61 349 C133 321 187 331 254 303 C309 282 363 304 395 321 L395 411 L61 411 Z" fill="url(#hillFront)"/>
+  <path d="M157 346 C189 359 228 368 266 350" fill="none" stroke="#83e6ac" stroke-width="6" opacity=".55"/>
+  <path d="M172 367 L213 408 L296 315" fill="none" stroke="#f9fff2" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/>
+</g>
+<path d="M218 42 C296 29 368 91 402 158" fill="none" stroke="#7ffa58" stroke-width="31" stroke-linecap="round"/>
+<circle cx="228" cy="228" r="158" fill="none" stroke="#d5fff4" stroke-width="4" opacity=".42"/>
+</svg>

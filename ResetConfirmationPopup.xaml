@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Class="DayCounter.ResetConfirmationPopup"
+    x:TypeArguments="system:Boolean">
+
+    <!-- Customize the reset confirmation here. -->
+    <VerticalStackLayout WidthRequest="300"
+                         Padding="24"
+                         Spacing="18"
+                         BackgroundColor="#F4F7F3">
+        <Label Text="Reset your counter?"
+               FontSize="23"
+               FontAttributes="Bold"
+               TextColor="#183B36"
+               HorizontalTextAlignment="Center" />
+
+        <Label Text="Your last drink date will be set to today and the count will return to 0."
+               FontSize="15"
+               TextColor="#36534D"
+               HorizontalTextAlignment="Center" />
+
+        <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+            <Button Grid.Column="0" Text="Cancel"
+                    BackgroundColor="#E0E8E3"
+                    TextColor="#183B36"
+                    CornerRadius="12"
+                    Clicked="OnCancelClicked" />
+            <Button Grid.Column="1" Text="Reset"
+                    BackgroundColor="#18796B"
+                    TextColor="White"
+                    CornerRadius="12"
+                    Clicked="OnResetClicked" />
+        </Grid>
+    </VerticalStackLayout>
+</toolkit:Popup>

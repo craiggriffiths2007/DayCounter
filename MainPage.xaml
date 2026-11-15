@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DayCounter.MainPage"
+             Title="DayCounter"
+             BackgroundColor="#F4F7F3">
+    <ScrollView VerticalOptions="Fill">
+        <VerticalStackLayout Spacing="18" Padding="24,40"
+                             MaximumWidthRequest="520"
+                             VerticalOptions="Center" HorizontalOptions="Center">
+
+
+            <Grid ColumnDefinitions="*,Auto" HeightRequest="46">
+                <Label Text="DayCounter" FontSize="22" TextColor="#183B36"
+                       VerticalTextAlignment="Center"/>
+                <Button Grid.Column="1" Text="⚙" FontSize="25"
+                        BackgroundColor="Transparent" TextColor="#183B36"
+                        WidthRequest="48" HeightRequest="48"
+                        SemanticProperties.Description="Open settings"
+                        Clicked="OnSettingsClicked"/>
+            </Grid>
+
+            <!-- Same illustrated landscape used by the Android widget.
+                 The ImageSource changes with the saved day in code-behind. -->
+            <Border StrokeThickness="0" BackgroundColor="#253346"
+                    StrokeShape="RoundRectangle 24"
+                    WidthRequest="300" HeightRequest="300"
+                    HorizontalOptions="Center">
+                <Grid>
+                    <Image x:Name="SceneImage" Source="day_scene_0.png"
+                           Aspect="AspectFill" />
+
+                    <VerticalStackLayout VerticalOptions="Center"
+                                         HorizontalOptions="Center" Spacing="8">
+                        <Label Text="DayCounter" FontSize="20"
+                               FontFamily="OpenSansRegular" TextColor="White"
+                               HorizontalTextAlignment="Center" />
+
+                        <HorizontalStackLayout Spacing="2" HorizontalOptions="Center"
+                                               VerticalOptions="Center">
+                            <!-- Day editing arrows are enabled only from Settings. -->
+                            <Button x:Name="PreviewPrevious" Text="&#x2039;"
+                                    IsVisible="False" BackgroundColor="#55000000"
+                                    TextColor="White" FontSize="26" Padding="2"
+                                    WidthRequest="42" HeightRequest="55"
+                                    Clicked="OnPreviewPreviousClicked" />
+                            <Label x:Name="CountLabel" Text="0"
+                                   FontSize="96" FontFamily="OpenSansSemibold"
+                                   TextColor="White" MinimumWidthRequest="88"
+                                   HorizontalTextAlignment="Center"
+                                   VerticalTextAlignment="Center" />
+                            <Button x:Name="PreviewNext" Text="&#x203A;"
+                                    IsVisible="False" BackgroundColor="#55000000"
+                                    TextColor="White" FontSize="26" Padding="2"
+                                    WidthRequest="42" HeightRequest="55"
+                                    Clicked="OnPreviewNextClicked" />
+                        </HorizontalStackLayout>
+
+                        <Label x:Name="UnitLabel" Text="DAYS SINCE LAST DRINK"
+                               FontSize="13" FontFamily="OpenSansRegular"
+                               TextColor="White" HorizontalTextAlignment="Center" />
+                        <Label x:Name="MessageLabel" Text="A fresh start"
+                               FontSize="14" FontFamily="OpenSansRegular"
+                               TextColor="#FFF1D7" HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <Label x:Name="SinceLabel" FontSize="15"
+                   FontFamily="OpenSansRegular" TextColor="#183B36"
+                   HorizontalTextAlignment="Center" />
+
+            <Label Text="One day at a time." FontSize="18"
+                   FontFamily="OpenSansRegular" TextColor="#183B36"
+                   HorizontalTextAlignment="Center" />
+
+            <Button Text="Reset to today" BackgroundColor="#18796B"
+                    TextColor="White" CornerRadius="14" Padding="16"
+                    Clicked="OnResetClicked" />
+
+            <Label x:Name="WidgetHelpLabel" IsVisible="False"
+                   Text="To see your count on your home screen, touch and hold an empty space, choose Widgets, then DayCounter. Tap the widget to open the app."
+                   FontSize="13" FontFamily="OpenSansRegular"
+                   TextColor="#183B36" HorizontalTextAlignment="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
