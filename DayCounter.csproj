@@ -36,10 +36,10 @@
 
 	<ItemGroup><Compile Remove="tests\**\*.cs" />
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#18796B" />
+		<MauiIcon Include="Resources\AppIcon\daycounter.png" Color="#FFFFFF" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#18796B" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\daycounter.png" Color="#FFFFFF" BaseSize="256,256" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
