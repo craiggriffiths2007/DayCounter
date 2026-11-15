@@ -10,27 +10,13 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY" android:src="@drawable/widget_scene_0"
         android:contentDescription="Weather-themed progress landscape" />
-    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-        android:orientation="horizontal" android:gravity="center">
-        <TextView android:id="@+id/debug_previous"
-            android:layout_width="18dp" android:layout_height="match_parent"
-            android:gravity="center" android:text="&#x2039;"
-            android:textSize="18sp" android:textStyle="bold"
-            android:textColor="#FFFFFF" android:visibility="gone"
-            android:contentDescription="Preview previous day" />
+    
         <TextView android:id="@+id/day_count"
-            android:layout_width="0dp" android:layout_weight="1"
+            android:layout_width="match_parent"
             android:layout_height="match_parent" android:gravity="center"
             android:text="0" android:textSize="32sp" android:textStyle="bold"
             android:textColor="#FFFFFF" android:singleLine="true"
             android:autoSizeTextType="uniform" android:autoSizeMinTextSize="13sp"
             android:autoSizeMaxTextSize="32sp" android:shadowColor="#99000000"
             android:shadowRadius="4" />
-        <TextView android:id="@+id/debug_next"
-            android:layout_width="18dp" android:layout_height="match_parent"
-            android:gravity="center" android:text="&#x203A;"
-            android:textSize="18sp" android:textStyle="bold"
-            android:textColor="#FFFFFF" android:visibility="gone"
-            android:contentDescription="Preview next day" />
-    </LinearLayout>
 </FrameLayout>
