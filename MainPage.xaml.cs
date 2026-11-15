@@ -8,7 +8,7 @@ namespace DayCounter;
 
 public partial class MainPage : ContentPage
 {
-    private readonly StartDateStore store = new(Path.Combine(FileSystem.AppDataDirectory, "start-date.txt"));
+    private readonly StartDateStore store = new(System.IO.Path.Combine(FileSystem.AppDataDirectory, "start-date.txt"));
     private IDispatcherTimer? timer;
 #if DEBUG && !ANDROID
     private int? localPreviewDay;
