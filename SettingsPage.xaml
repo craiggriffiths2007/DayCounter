@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DayCounter.SettingsPage"
+             Title="Settings"
+             BackgroundColor="#F4F7F3">
+    <ScrollView>
+        <VerticalStackLayout Padding="24,28" Spacing="24" MaximumWidthRequest="520">
+            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                <Button Text="&#x2039;" Clicked="OnBackClicked" WidthRequest="48"
+                        BackgroundColor="#E0E8E3" TextColor="#183B36" />
+                <Label Grid.Column="1" Text="Settings" FontSize="30" FontAttributes="Bold"
+                       TextColor="#183B36" VerticalTextAlignment="Center"/>
+            </Grid>
+
+            <Border BackgroundColor="White" StrokeThickness="0"
+                    StrokeShape="RoundRectangle 18" Padding="18">
+                <VerticalStackLayout Spacing="12">
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16">
+                        <Label Text="Allow day change" FontSize="18" TextColor="#183B36"
+                               FontAttributes="Bold" VerticalTextAlignment="Center"/>
+                        <Switch x:Name="AllowDayChangeSwitch" Grid.Column="1"
+                                OnColor="#18796B" Toggled="OnAllowDayChangeToggled"/>
+                    </Grid>
+                    <Label Text="Off by default. When enabled, arrows appear beside the count in the app to change your saved start date. The widget always has no arrows."
+                           FontSize="13" TextColor="#536B65"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border BackgroundColor="White" StrokeThickness="0"
+                    StrokeShape="RoundRectangle 18" Padding="18">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Theme" FontSize="18" FontAttributes="Bold"
+                           TextColor="#183B36"/>
+                    <Picker x:Name="ThemePicker" Title="Choose a theme"
+                            SelectedIndexChanged="OnThemeChanged"
+                            TextColor="#183B36">
+                        <Picker.Items>
+                            <x:String>Storm to Sunshine</x:String>
+                            <x:String>Classic Green</x:String>
+                        </Picker.Items>
+                    </Picker>
+                    <Label Text="The selected theme is used by both the main app and the home-screen widget."
+                           FontSize="13" TextColor="#536B65"/>
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
