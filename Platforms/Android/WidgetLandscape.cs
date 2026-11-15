@@ -3,6 +3,9 @@ using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Content;
 using AColor = Android.Graphics.Color;
+using Paint = Android.Graphics.Paint;
+using Path = Android.Graphics.Path;
+using RectF = Android.Graphics.RectF;
 
 namespace DayCounter;
 
