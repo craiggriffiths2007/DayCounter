@@ -9,10 +9,8 @@ namespace DayCounter;
 public partial class MainPage : ContentPage
 {
     private readonly StartDateStore store = new(System.IO.Path.Combine(FileSystem.AppDataDirectory, "start-date.txt"));
+    private readonly CounterSettings settings = new(FileSystem.AppDataDirectory);
     private IDispatcherTimer? timer;
-#if DEBUG && !ANDROID
-    private int? localPreviewDay;
-#endif
 
     public MainPage()
     {
@@ -20,15 +18,13 @@ public partial class MainPage : ContentPage
 #if ANDROID
         WidgetHelpLabel.IsVisible = true;
 #endif
-#if DEBUG
-        PreviewPrevious.IsVisible = true;
-        PreviewNext.IsVisible = true;
-#endif
     }
+
+    private async void OnSettingsClicked(object sender, EventArgs e) =>
+        await Shell.Current.GoToAsync(nameof(SettingsPage));
 
     private async void OnResetClicked(object sender, EventArgs e)
     {
-        // A typed CommunityToolkit popup returns true only for Reset.
         var result = await this.ShowPopupAsync<bool>(
             new ResetConfirmationPopup(),
             new PopupOptions
@@ -42,17 +38,11 @@ public partial class MainPage : ContentPage
             },
             CancellationToken.None);
 
-        if (result.Result is not true)
-            return;
+        if (result.Result is not true) return;
 
         try
         {
             store.Reset(DateTime.Today);
-#if DEBUG && ANDROID
-            DayCounterWidget.SetPreviewDay(Android.App.Application.Context, -1);
-#elif DEBUG
-            localPreviewDay = null;
-#endif
             Refresh();
         }
         catch (Exception ex)
@@ -80,27 +70,25 @@ public partial class MainPage : ContentPage
 
     private void OnTick(object? sender, EventArgs args) => Refresh();
 
-    private void OnPreviewPreviousClicked(object sender, EventArgs e) => AdjustPreview(-1);
-    private void OnPreviewNextClicked(object sender, EventArgs e) => AdjustPreview(1);
+    private void OnPreviewPreviousClicked(object sender, EventArgs e) => ChangeDays(-1);
+    private void OnPreviewNextClicked(object sender, EventArgs e) => ChangeDays(1);
 
-    private void AdjustPreview(int delta)
+    private void ChangeDays(int delta)
     {
-#if DEBUG
+        // Never change the saved date unless explicitly enabled in Settings.
+        if (!settings.AllowDayChange) return;
         try
         {
-            var start = store.GetOrCreate(DateTime.Today);
-            var realDays = DayCount.Since(start, DateTime.Today);
-#if ANDROID
-            var context = Android.App.Application.Context;
-            var previous = DayCounterWidget.PreviewDay(context);
-            DayCounterWidget.SetPreviewDay(context, Math.Clamp((previous >= 0 ? previous : realDays) + delta, 0, 10));
-#else
-            localPreviewDay = Math.Clamp((localPreviewDay ?? realDays) + delta, 0, 10);
-#endif
+            var oldDays = DayCount.Since(store.GetOrCreate(DateTime.Today), DateTime.Today);
+            var nextDays = Math.Clamp(oldDays + delta, 0, 36500);
+            if (nextDays != oldDays)
+                store.Reset(DateTime.Today.AddDays(-nextDays));
             Refresh();
         }
-        catch { Refresh(); }
-#endif
+        catch (Exception ex)
+        {
+            _ = DisplayAlertAsync("Couldn't change day", ex.Message, "OK");
+        }
     }
 
     private void Refresh()
@@ -108,23 +96,19 @@ public partial class MainPage : ContentPage
         try
         {
             var start = store.GetOrCreate(DateTime.Today);
-            var realDays = DayCount.Since(start, DateTime.Today);
-            var days = realDays;
-#if DEBUG && ANDROID
-            var preview = DayCounterWidget.PreviewDay(Android.App.Application.Context);
-            if (preview >= 0) days = preview;
-#elif DEBUG
-            if (localPreviewDay.HasValue) days = localPreviewDay.Value;
-#endif
+            var days = DayCount.Since(start, DateTime.Today);
+
+            PreviewPrevious.IsVisible = settings.AllowDayChange;
+            PreviewNext.IsVisible = settings.AllowDayChange;
             CountLabel.Text = days.ToString();
             UnitLabel.Text = days == 1 ? "DAY SINCE LAST DRINK" : "DAYS SINCE LAST DRINK";
-            SceneImage.Source = $"day_scene_{Math.Clamp(days, 0, 10)}.png";
-            MessageLabel.Text = MessageForDay(days);
             SinceLabel.Text = $"Since {start:d MMMM yyyy}";
-#if DEBUG
-            if (days != realDays)
-                SinceLabel.Text += $"  (Preview day {days}; date unchanged)";
-#endif
+
+            var isClassic = settings.Theme == CounterSettings.Classic;
+            SceneImage.IsVisible = !isClassic;
+            if (!isClassic)
+                SceneImage.Source = $"day_scene_{Math.Clamp(days, 0, 10)}.png";
+            MessageLabel.Text = isClassic ? "One day at a time" : MessageForDay(days);
 #if ANDROID
             DayCounterWidget.UpdateAll(Android.App.Application.Context);
 #endif
