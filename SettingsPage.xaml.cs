@@ -1,3 +1,6 @@
+using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Extensions;
+using Microsoft.Maui.Controls.Shapes;
 using DayCounter.Services;
 
 namespace DayCounter;
@@ -12,9 +15,13 @@ public partial class SettingsPage : ContentPage
         InitializeComponent();
         loading = true;
         AllowDayChangeSwitch.IsToggled = settings.AllowDayChange;
-        ThemePicker.SelectedIndex = settings.Theme == CounterSettings.Classic ? 1 : 0;
+        UpdateThemeLabel();
         loading = false;
     }
+
+    private void UpdateThemeLabel() =>
+        ThemeButton.Text = settings.Theme == CounterSettings.Classic
+            ? "Classic Green" : "Storm to Sunshine";
 
     private void OnAllowDayChangeToggled(object sender, ToggledEventArgs e)
     {
@@ -22,10 +29,27 @@ public partial class SettingsPage : ContentPage
         settings.AllowDayChange = e.Value;
     }
 
-    private void OnThemeChanged(object sender, EventArgs e)
+    private async void OnChooseThemeClicked(object sender, EventArgs e)
     {
-        if (loading || ThemePicker.SelectedIndex < 0) return;
-        settings.Theme = ThemePicker.SelectedIndex == 1 ? CounterSettings.Classic : CounterSettings.Weather;
+        var result = await this.ShowPopupAsync<string>(
+            new ThemeSelectionPopup(settings.Theme),
+            new PopupOptions
+            {
+                CanBeDismissedByTappingOutsideOfPopup = true,
+                Shape = new RoundRectangle
+                {
+                    CornerRadius = new CornerRadius(20),
+                    StrokeThickness = 0
+                }
+            },
+            CancellationToken.None);
+
+        if (result.Result != CounterSettings.Weather &&
+            result.Result != CounterSettings.Classic)
+            return;
+
+        settings.Theme = result.Result;
+        UpdateThemeLabel();
 #if ANDROID
         DayCounterWidget.UpdateAll(Android.App.Application.Context);
 #endif
