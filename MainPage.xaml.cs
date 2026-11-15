@@ -1,3 +1,5 @@
+using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Views;
 using DayCounter.Models;
 using DayCounter.Services;
 
@@ -25,9 +27,21 @@ public partial class MainPage : ContentPage
 
     private async void OnResetClicked(object sender, EventArgs e)
     {
-        if (!await DisplayAlertAsync("Reset the counter?",
-            "Your last drink date will be set to today and the count will return to 0.",
-            "Reset", "Cancel"))
+        // A typed CommunityToolkit popup returns true only for Reset.
+        var result = await this.ShowPopupAsync<bool>(
+            new ResetConfirmationPopup(),
+            new PopupOptions
+            {
+                CanBeDismissedByTappingOutsideOfPopup = true,
+                Shape = new RoundRectangle
+                {
+                    CornerRadius = new CornerRadius(20),
+                    StrokeThickness = 0
+                }
+            },
+            CancellationToken.None);
+
+        if (result.Result is not true)
             return;
 
         try
