@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DayCounter.MainPage"
+             Title="DayCounter"
+             BackgroundColor="#F4F7F3">
+    <!-- Edit the spacing, colours, fonts and controls here without changing C#. -->
+    <ScrollView VerticalOptions="Fill">
+        <VerticalStackLayout Spacing="18"
+                             Padding="24,40"
+                             MaximumWidthRequest="520"
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center">
+            <Label Text="DayCounter"
+                   FontSize="30"
+                   FontFamily="OpenSansRegular"
+                   TextColor="#183B36"
+                   HorizontalTextAlignment="Center" />
+
+            <Label x:Name="CountLabel"
+                   Text="0"
+                   FontSize="110"
+                   FontFamily="OpenSansSemibold"
+                   TextColor="#18796B"
+                   HorizontalTextAlignment="Center" />
+
+            <Label x:Name="UnitLabel"
+                   Text="DAYS SINCE LAST DRINK"
+                   FontSize="13"
+                   FontFamily="OpenSansRegular"
+                   TextColor="#183B36"
+                   HorizontalTextAlignment="Center" />
+
+            <Label x:Name="SinceLabel"
+                   FontSize="15"
+                   FontFamily="OpenSansRegular"
+                   TextColor="#183B36"
+                   HorizontalTextAlignment="Center" />
+
+            <Label Text="One day at a time."
+                   FontSize="18"
+                   FontFamily="OpenSansRegular"
+                   TextColor="#183B36"
+                   HorizontalTextAlignment="Center" />
+
+            <Button Text="Reset to today"
+                    BackgroundColor="#18796B"
+                    TextColor="White"
+                    CornerRadius="14"
+                    Padding="16"
+                    Clicked="OnResetClicked" />
+
+            <!-- Only shown on Android; Windows has no Android home-screen widget. -->
+            <Label x:Name="WidgetHelpLabel"
+                   IsVisible="False"
+                   Text="To see your count on your home screen, touch and hold an empty space, choose Widgets, then DayCounter. Tap the widget to open the app."
+                   FontSize="13"
+                   FontFamily="OpenSansRegular"
+                   TextColor="#183B36"
+                   HorizontalTextAlignment="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
