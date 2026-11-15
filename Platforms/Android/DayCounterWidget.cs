@@ -62,11 +62,25 @@ public sealed class DayCounterWidget : AppWidgetProvider
             value = "—";
         }
 
-        // Render the same scene once for all widgets, then choose the
-        // appropriate layout for each widget's current home-screen size.
-        Android.Graphics.Bitmap? scene = null;
-        try { scene = WidgetLandscape.Render(days); }
-        catch (Exception ex) { Log.Warn("DayCounterWidget", $"Unable to render scenery: {ex}"); }
+        // Android drawable resources are applied by the launcher itself.
+        // This avoids transferring a bitmap through RemoteViews, which could
+        // silently leave the original green fallback visible.
+        var stage = WidgetLandscape.Stage(days);
+        int[] sceneResources =
+        {
+            Resource.Drawable.widget_scene_0,
+            Resource.Drawable.widget_scene_1,
+            Resource.Drawable.widget_scene_2,
+            Resource.Drawable.widget_scene_3,
+            Resource.Drawable.widget_scene_4,
+            Resource.Drawable.widget_scene_5,
+            Resource.Drawable.widget_scene_6,
+            Resource.Drawable.widget_scene_7,
+            Resource.Drawable.widget_scene_8,
+            Resource.Drawable.widget_scene_9,
+            Resource.Drawable.widget_scene_10
+        };
+        var sceneResource = sceneResources[stage];
 
         try
         {
@@ -96,7 +110,7 @@ public sealed class DayCounterWidget : AppWidgetProvider
                         views.SetTextViewText(Resource.Id.day_message,
                             value == "—" ? "Open app to check date" : WidgetLandscape.Message(days));
                     }
-                    if (scene is not null) views.SetImageViewBitmap(Resource.Id.widget_scene, scene);
+                    views.SetImageViewResource(Resource.Id.widget_scene, sceneResource);
                     views.SetOnClickPendingIntent(Resource.Id.widget_root, pending);
                     manager.UpdateAppWidget(id, views);
                 }
@@ -108,7 +122,7 @@ public sealed class DayCounterWidget : AppWidgetProvider
         }
         finally
         {
-            scene?.Dispose();
+            // All RemoteViews are built; no bitmap allocations to clean up.
         }
     }
 }
