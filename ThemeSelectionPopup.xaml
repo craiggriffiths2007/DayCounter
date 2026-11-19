@@ -12,6 +12,9 @@
         <Button x:Name="WeatherButton" Text="Storm to Sunshine"
                 Clicked="OnWeatherClicked" CornerRadius="12"
                 BackgroundColor="#E0E8E3" TextColor="#183B36" />
+        <Button x:Name="CoastalButton" Text="Coast"
+                Clicked="OnCoastalClicked" CornerRadius="12"
+                BackgroundColor="#E0E8E3" TextColor="#183B36" />
         <Button x:Name="ClassicButton" Text="Classic Green"
                 Clicked="OnClassicClicked" CornerRadius="12"
                 BackgroundColor="#E0E8E3" TextColor="#183B36" />

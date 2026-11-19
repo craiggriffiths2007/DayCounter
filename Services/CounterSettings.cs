@@ -5,6 +5,9 @@ public sealed class CounterSettings(string directory)
 {
     public const string Weather = "weather";
     public const string Classic = "classic";
+    public const string Coastal = "coastal";
+
+    public static int CoastalStage(int days) => Math.Clamp(days, 0, 11);
 
     private string PathFor(string name) => System.IO.Path.Combine(directory, name);
 
@@ -16,13 +19,12 @@ public sealed class CounterSettings(string directory)
 
     public string Theme
     {
-        get
-        {
-            var value = Read("theme.txt", Weather);
-            return value == Classic ? Classic : Weather;
-        }
-        set => Write("theme.txt", value == Classic ? Classic : Weather);
+        get => NormalizeTheme(Read("theme.txt", Weather));
+        set => Write("theme.txt", NormalizeTheme(value));
     }
+
+    private static string NormalizeTheme(string value) =>
+        value is Classic or Coastal ? value : Weather;
 
     private string Read(string name, string fallback)
     {

@@ -60,7 +60,7 @@ public sealed class DayCounterWidget : AppWidgetProvider
         }
 
         var settings = new CounterSettings(context.FilesDir!.AbsolutePath);
-        var classic = settings.Theme == CounterSettings.Classic;
+        var theme = settings.Theme;
         int[] scenes =
         {
             Resource.Drawable.widget_scene_0, Resource.Drawable.widget_scene_1,
@@ -70,9 +70,21 @@ public sealed class DayCounterWidget : AppWidgetProvider
             Resource.Drawable.widget_scene_8, Resource.Drawable.widget_scene_9,
             Resource.Drawable.widget_scene_10
         };
-        var imageResource = classic
-            ? Resource.Drawable.widget_background
-            : scenes[WidgetLandscape.Stage(days)];
+        int[] coastalScenes =
+        {
+            Resource.Drawable.coastal_path_0, Resource.Drawable.coastal_path_1,
+            Resource.Drawable.coastal_path_2, Resource.Drawable.coastal_path_3,
+            Resource.Drawable.coastal_path_4, Resource.Drawable.coastal_path_5,
+            Resource.Drawable.coastal_path_6, Resource.Drawable.coastal_path_7,
+            Resource.Drawable.coastal_path_8, Resource.Drawable.coastal_path_9,
+            Resource.Drawable.coastal_path_10, Resource.Drawable.coastal_path_11
+        };
+        var imageResource = theme switch
+        {
+            CounterSettings.Classic => Resource.Drawable.widget_background,
+            CounterSettings.Coastal => coastalScenes[CounterSettings.CoastalStage(days)],
+            _ => scenes[WidgetLandscape.Stage(days)]
+        };
 
         var launch = new Intent(context, typeof(MainActivity));
         launch.SetFlags(ActivityFlags.NewTask | ActivityFlags.ClearTop);
@@ -96,7 +108,7 @@ public sealed class DayCounterWidget : AppWidgetProvider
                         value == "1" ? "day since last drink" : "days since last drink");
                     views.SetTextViewText(Resource.Id.day_message,
                         value == "—" ? "Open app to check date" :
-                        classic ? "One day at a time" : WidgetLandscape.Message(days));
+                        theme == CounterSettings.Weather ? WidgetLandscape.Message(days) : "One day at a time");
                 }
                 views.SetImageViewResource(Resource.Id.widget_scene, imageResource);
                 views.SetOnClickPendingIntent(Resource.Id.widget_root, pending);

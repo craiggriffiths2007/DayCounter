@@ -104,11 +104,16 @@ public partial class MainPage : ContentPage
             UnitLabel.Text = days == 1 ? "DAY SINCE LAST DRINK" : "DAYS SINCE LAST DRINK";
             SinceLabel.Text = $"Since {start:d MMMM yyyy}";
 
-            var isClassic = settings.Theme == CounterSettings.Classic;
-            SceneImage.IsVisible = !isClassic;
-            if (!isClassic)
-                SceneImage.Source = $"day_scene_{Math.Clamp(days, 0, 10)}.png";
-            MessageLabel.Text = isClassic ? "One day at a time" : MessageForDay(days);
+            var theme = settings.Theme;
+            SceneImage.IsVisible = theme != CounterSettings.Classic;
+            if (SceneImage.IsVisible)
+            {
+                SceneImage.Source = theme == CounterSettings.Coastal
+                    ? $"coastal_path_{CounterSettings.CoastalStage(days)}.jpg"
+                    : $"day_scene_{Math.Clamp(days, 0, 10)}.png";
+            }
+            MessageLabel.Text = theme == CounterSettings.Weather
+                ? MessageForDay(days) : "One day at a time";
 #if ANDROID
             DayCounterWidget.UpdateAll(Android.App.Application.Context);
 #endif

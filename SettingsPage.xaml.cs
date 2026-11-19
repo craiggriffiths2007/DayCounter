@@ -20,8 +20,12 @@ public partial class SettingsPage : ContentPage
     }
 
     private void UpdateThemeLabel() =>
-        ThemeButton.Text = settings.Theme == CounterSettings.Classic
-            ? "Classic Green" : "Storm to Sunshine";
+        ThemeButton.Text = settings.Theme switch
+        {
+            CounterSettings.Classic => "Classic Green",
+            CounterSettings.Coastal => "Coast",
+            _ => "Storm to Sunshine"
+        };
 
     private void OnAllowDayChangeToggled(object sender, ToggledEventArgs e)
     {
@@ -44,8 +48,7 @@ public partial class SettingsPage : ContentPage
             },
             CancellationToken.None);
 
-        if (result.Result != CounterSettings.Weather &&
-            result.Result != CounterSettings.Classic)
+        if (result.Result is not (CounterSettings.Weather or CounterSettings.Classic or CounterSettings.Coastal))
             return;
 
         settings.Theme = result.Result;
