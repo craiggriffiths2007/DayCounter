@@ -34,6 +34,18 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)' == 'Release|net11.0-android'">
+		<!-- Enables R8 shrinking and optimization -->
+		<AndroidLinkTool>r8</AndroidLinkTool>
+
+		<!-- Enables R8 obfuscation of private and package-private Java members -->
+		<AndroidR8ObfuscationMode>private-members</AndroidR8ObfuscationMode>
+
+		<!-- Generates the mapping file so Google Play can measure obfuscation and deobfuscate crash reports -->
+		<AndroidCreateProguardMappingFile>true</AndroidCreateProguardMappingFile>
+	</PropertyGroup>
+	
+
 	<ItemGroup><Compile Remove="tests\**\*.cs" />
 		<!-- App Icon -->
 
