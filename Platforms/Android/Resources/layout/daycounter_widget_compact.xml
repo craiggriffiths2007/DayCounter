@@ -8,7 +8,7 @@
         android:id="@+id/widget_scene"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY" android:src="@drawable/widget_scene_0"
+        android:scaleType="centerCrop" android:src="@drawable/widget_scene_0"
         android:contentDescription="Weather-themed progress landscape" />
     
         <TextView android:id="@+id/day_count"
